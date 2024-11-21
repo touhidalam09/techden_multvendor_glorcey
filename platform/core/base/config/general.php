@@ -466,4 +466,5 @@ return [
     'google_fonts_key' => env('CMS_GOOGLE_FONTS_KEY'),
     'demo_mode_enabled' => env('CMS_DEMO_MODE_ENABLED', false),
     'enable_email_configuration_from_admin_panel' => env('CMS_ENABLE_EMAIL_CONFIGURATION_FROM_ADMIN_PANEL', true),
+    'cms_session_cookie_key_name' => env('CMS_SESSION_COOKIE_KEY_NAME', 'botble_session'),
 ];

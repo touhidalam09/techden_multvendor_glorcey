@@ -73,7 +73,7 @@ final class Core
 
     private string $version = '1.0.0';
 
-    private string $minimumPhpVersion = '8.1.0';
+    private string $minimumPhpVersion = '8.2.0';
 
     private string $licenseUrl = 'https://license.botble.com';
 

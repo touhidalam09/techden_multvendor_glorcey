@@ -3,6 +3,7 @@
 namespace Botble\Shippo;
 
 use Botble\Base\Facades\BaseHelper;
+use Botble\Ecommerce\Enums\OrderStatusEnum;
 use Botble\Ecommerce\Enums\ShippingStatusEnum;
 use Botble\Ecommerce\Facades\EcommerceHelper;
 use Botble\Ecommerce\Models\Shipment;
@@ -885,8 +886,17 @@ class Shippo
     public function canCreateTransaction(Shipment $shipment): bool
     {
         $order = $shipment->order;
-        if ($order && $order->id && $order->shipping_method->getValue() == SHIPPO_SHIPPING_METHOD_NAME
-            && in_array($shipment->status->getValue(), [ShippingStatusEnum::APPROVED, ShippingStatusEnum::PENDING])) {
+        if (
+            $order
+            && $order->id
+            && $order->shipping_method->getValue() == SHIPPO_SHIPPING_METHOD_NAME
+            && $order->status != OrderStatusEnum::CANCELED
+            && ! in_array($shipment->status->getValue(), [
+                ShippingStatusEnum::CANCELED,
+                ShippingStatusEnum::DELIVERING,
+                ShippingStatusEnum::DELIVERED,
+                ShippingStatusEnum::NOT_DELIVERED,
+            ])) {
             return true;
         }
 

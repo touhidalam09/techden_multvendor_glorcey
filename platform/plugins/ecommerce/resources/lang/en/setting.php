@@ -148,6 +148,7 @@ return [
             'all' => 'All',
             'all_helper_text' => 'If you uncheck all countries, it will apply for all countries.',
             'enable_guest_checkout' => 'Enable guest checkout',
+            'enable_guest_checkout_helper' => 'If enabled, customers can place an order without creating an account.',
             'recently_viewed' => [
                 'enable' => 'Enable customer recently viewed products',
                 'max' => 'Maximum number of customer recently viewed products',

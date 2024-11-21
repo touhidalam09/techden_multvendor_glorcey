@@ -54,6 +54,32 @@ class ProductTable extends TableAbstract
                     ->route('tools.data-synchronize.import.products.index')
                     ->permission('ecommerce.import.products.index'),
             ])
+            ->addBulkActions([
+                DeleteBulkAction::make()->permission('products.destroy'),
+            ])
+            ->addColumns([
+                IdColumn::make(),
+                ImageColumn::make(),
+                Column::make('name')
+                    ->title(trans('plugins/ecommerce::products.name'))
+                    ->alignStart(),
+                Column::make('price')
+                    ->title(trans('plugins/ecommerce::products.price'))
+                    ->alignStart(),
+                Column::make('stock_status')
+                    ->title(trans('plugins/ecommerce::products.stock_status')),
+                Column::make('quantity')
+                    ->title(trans('plugins/ecommerce::products.quantity'))
+                    ->alignStart(),
+                Column::make('sku')
+                    ->title(trans('plugins/ecommerce::products.sku'))
+                    ->alignStart(),
+                Column::make('order')
+                    ->title(trans('plugins/ecommerce::ecommerce.sort_order'))
+                    ->width(50),
+                CreatedAtColumn::make(),
+                StatusColumn::make(),
+            ])
             ->queryUsing(function (Builder $query) {
                 return $query
                     ->select([
@@ -183,33 +209,6 @@ class ProductTable extends TableAbstract
         return parent::htmlDrawCallbackFunction() . 'Botble.initEditable()';
     }
 
-    public function columns(): array
-    {
-        return [
-            IdColumn::make(),
-            ImageColumn::make(),
-            Column::make('name')
-                ->title(trans('plugins/ecommerce::products.name'))
-                ->alignStart(),
-            Column::make('price')
-                ->title(trans('plugins/ecommerce::products.price'))
-                ->alignStart(),
-            Column::make('stock_status')
-                ->title(trans('plugins/ecommerce::products.stock_status')),
-            Column::make('quantity')
-                ->title(trans('plugins/ecommerce::products.quantity'))
-                ->alignStart(),
-            Column::make('sku')
-                ->title(trans('plugins/ecommerce::products.sku'))
-                ->alignStart(),
-            Column::make('order')
-                ->title(trans('plugins/ecommerce::ecommerce.sort_order'))
-                ->width(50),
-            CreatedAtColumn::make(),
-            StatusColumn::make(),
-        ];
-    }
-
     public function buttons(): array
     {
         $buttons = [];
@@ -251,13 +250,6 @@ class ProductTable extends TableAbstract
         }
 
         return $buttons;
-    }
-
-    public function bulkActions(): array
-    {
-        return [
-            DeleteBulkAction::make()->permission('products.destroy'),
-        ];
     }
 
     public function renderTable($data = [], $mergeData = []): View|Factory|Response

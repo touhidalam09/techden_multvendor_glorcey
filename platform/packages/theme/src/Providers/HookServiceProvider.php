@@ -5,15 +5,15 @@ namespace Botble\Theme\Providers;
 use Botble\Base\Facades\AdminAppearance;
 use Botble\Base\Facades\BaseHelper;
 use Botble\Base\Facades\Html;
-use Botble\Base\Forms\FieldOptions\CodeEditorFieldOption;
 use Botble\Base\Forms\FieldOptions\MediaFileFieldOption;
 use Botble\Base\Forms\FieldOptions\SelectFieldOption;
-use Botble\Base\Forms\Fields\CodeEditorField;
+use Botble\Base\Forms\FieldOptions\TextareaFieldOption;
 use Botble\Base\Forms\Fields\MediaFileField;
 use Botble\Base\Forms\Fields\NumberField;
 use Botble\Base\Forms\Fields\OnOffCheckboxField;
 use Botble\Base\Forms\Fields\RadioField;
 use Botble\Base\Forms\Fields\SelectField;
+use Botble\Base\Forms\Fields\TextareaField;
 use Botble\Base\Forms\Fields\TextField;
 use Botble\Base\Forms\FormAbstract;
 use Botble\Base\Rules\OnOffRule;
@@ -410,14 +410,13 @@ class HookServiceProvider extends ServiceProvider
                     return ShortcodeForm::createFromArray($attributes)
                         ->add(
                             'content',
-                            CodeEditorField::class,
-                            CodeEditorFieldOption::make()
+                            TextareaField::class,
+                            TextareaFieldOption::make()
                                 ->label(__('Content'))
                                 ->placeholder(__('HTML code'))
                                 ->rows(3)
                                 ->addAttribute('data-shortcode-attribute', 'content')
                                 ->value($content)
-                                ->mode('html')
                         );
                 });
             }

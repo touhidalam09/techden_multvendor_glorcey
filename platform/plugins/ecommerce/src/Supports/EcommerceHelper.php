@@ -58,6 +58,8 @@ class EcommerceHelper
 
     protected bool $loadLocationDataFromPluginLocation;
 
+    protected bool $useTailwindCss = false;
+
     public function isCartEnabled(): bool
     {
         return (bool) get_ecommerce_setting('shopping_cart_enabled', 1);
@@ -1335,12 +1337,22 @@ class EcommerceHelper
         return get_ecommerce_setting('login_option', 'email');
     }
 
+    public function useTailwindCSS(bool $useTailwindCSS = true): void
+    {
+        $this->useTailwindCss = $useTailwindCSS;
+    }
+
     public function registerThemeAssets(): void
     {
-        $version = get_cms_version() . '.5';
+        $version = get_cms_version() . '.1';
 
         Theme::asset()
             ->add('front-ecommerce-css', 'vendor/core/plugins/ecommerce/css/front-ecommerce.css', version: $version);
+
+        if ($this->useTailwindCss) {
+            Theme::asset()
+                ->add('front-ecommerce-missing-bootstrap-css', 'vendor/core/plugins/ecommerce/css/front-ecommerce-missing-bootstrap.css', ['front-ecommerce-css'], version: $version);
+        }
 
         if (BaseHelper::isRtlEnabled()) {
             Theme::asset()
@@ -1631,6 +1643,8 @@ class EcommerceHelper
                     'name' => 'ecommerce_product_gallery_video_position',
                     'list' => [
                         'top' => __('Top'),
+                        'after_first_image' => __('After the first image'),
+                        'before_last_image' => __('Before the last image'),
                         'bottom' => __('Bottom'),
                     ],
                     'value' => 'bottom',

@@ -1,3 +1,7 @@
+@php
+    $currentMainFilterUrl = $store->url;
+@endphp
+
 <div class="bb-filter-offcanvas-area">
     <div class="bb-filter-offcanvas-wrapper">
         <div class="bb-filter-offcanvas-close">

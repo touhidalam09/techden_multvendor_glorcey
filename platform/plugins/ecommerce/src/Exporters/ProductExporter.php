@@ -22,7 +22,7 @@ class ProductExporter extends Exporter
 
     protected array $supportedLocales = [];
 
-    protected string $defaultLanguage;
+    protected ?string $defaultLanguage = null;
 
     public function __construct()
     {
@@ -31,7 +31,7 @@ class ProductExporter extends Exporter
 
         if (defined('LANGUAGE_MODULE_SCREEN_NAME')) {
             $this->supportedLocales = Language::getSupportedLocales();
-            $this->defaultLanguage = Language::getDefaultLanguage(['lang_code'])->lang_code;
+            $this->defaultLanguage = Language::getDefaultLanguage(['lang_code'])?->lang_code;
         }
     }
 

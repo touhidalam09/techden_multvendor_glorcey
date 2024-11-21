@@ -23,7 +23,7 @@
         @foreach ($currentCategories as $category)
             @if (! empty($categoriesRequest) && $loop->first && ! $category->parent_id)
                 <li class="bb-product-filter-item">
-                    <a href="{{ route('public.products') }}" @class(['bb-product-filter-link', 'active' => empty($categoriesRequest)])>
+                    <a href="{{ $currentMainFilterUrl ?? route('public.products') }}" @class(['bb-product-filter-link', 'active' => empty($categoriesRequest)])>
                         <x-core::icon name="ti ti-chevron-left" />
 
                         {{ __('All categories') }}

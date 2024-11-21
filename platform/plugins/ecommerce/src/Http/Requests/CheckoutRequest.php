@@ -21,7 +21,7 @@ class CheckoutRequest extends Request
         ];
 
         if (theme_option('ecommerce_term_and_privacy_policy_url') || theme_option('term_and_privacy_policy_url')) {
-            $rules['agree_terms_and_policy'] = 'sometimes|accepted:1';
+            $rules['agree_terms_and_policy'] = 'required|accepted:1';
         }
 
         if (is_plugin_active('payment') && Cart::instance('cart')->rawTotal()) {
@@ -153,7 +153,10 @@ class CheckoutRequest extends Request
 
     public function messages(): array
     {
-        return apply_filters(PROCESS_CHECKOUT_MESSAGES_REQUEST_ECOMMERCE, []);
+        return apply_filters(PROCESS_CHECKOUT_MESSAGES_REQUEST_ECOMMERCE, [
+            'agree_terms_and_policy.required' => __('You must agree to the terms and conditions and privacy policy.'),
+            'agree_terms_and_policy.accepted' => __('You must agree to the terms and conditions and privacy policy.'),
+        ]);
     }
 
     public function attributes(): array

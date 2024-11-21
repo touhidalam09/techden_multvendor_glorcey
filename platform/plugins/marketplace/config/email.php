@@ -166,5 +166,18 @@ return [
                 'unblock_date' => 'plugins/marketplace::marketplace.email.unblock_date',
             ],
         ],
+        'order_cancellation_to_vendor' => [
+            'title' => 'plugins/marketplace::marketplace.email.order_cancellation_to_vendor_title',
+            'description' => 'plugins/marketplace::marketplace.email.order_cancellation_to_vendor_description',
+            'subject' => 'plugins/marketplace::marketplace.email.order_cancellation_to_vendor_subject',
+            'can_off' => true,
+            'enabled' => false,
+            'variables' => [
+                'customer_name' => 'plugins/ecommerce::ecommerce.customer_name',
+                'order_id' => 'plugins/ecommerce::ecommerce.order_id',
+                'cancellation_reason' => 'plugins/ecommerce::order.order_cancellation_reason',
+                'product_list' => 'plugins/ecommerce::ecommerce.product_list',
+            ],
+        ],
     ],
 ];

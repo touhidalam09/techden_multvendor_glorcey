@@ -45,7 +45,7 @@ class ProductController extends BaseController
         return $table->renderTable();
     }
 
-    public function create(Request $request)
+    public function create()
     {
         if (EcommerceHelper::getCurrentCreationContextProductType() == ProductTypeEnum::DIGITAL) {
             $this->pageTitle(trans('plugins/ecommerce::products.create_product_type.digital'));

@@ -1054,8 +1054,12 @@ class Theme implements ThemeContract
         return apply_filters('theme_site_title', theme_option('site_title'));
     }
 
-    public function getLogoImage(array $attributes = [], string $logoKey = 'logo', int $maxHeight = 0, ?string $logoUrl = null): ?HtmlString
-    {
+    public function getLogoImage(
+        array $attributes = [],
+        string $logoKey = 'logo',
+        int $maxHeight = 0,
+        ?string $logoUrl = null
+    ): ?HtmlString {
         if ($logoUrl) {
             $logo = $logoUrl;
         } else {

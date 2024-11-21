@@ -89,7 +89,11 @@ class PublicCheckoutController extends BaseController
             $request->input('error') == 1 &&
             $request->input('error_type') == 'payment'
         ) {
-            $request->session()->flash('error_msg', __('Payment failed!'));
+            $message = $request->input('error_message') ?: __('Payment failed!');
+
+            $request->session()->flash('error_msg', $message);
+
+            return redirect()->to(route('public.checkout.information', $token))->with('error_msg', $message);
         }
 
         $sessionCheckoutData = OrderHelper::getOrderSessionData($token);
@@ -430,7 +434,7 @@ class PublicCheckoutController extends BaseController
                     'order_id' => $sessionData['created_order_id'],
                     'product_id' => $cartItem->id,
                     'product_name' => $cartItem->name,
-                    'product_image' => $product->original_product->image,
+                    'product_image' => $cartItem->options['image'],
                     'qty' => $cartItem->qty,
                     'weight' => $weight,
                     'price' => $cartItem->price,
@@ -800,7 +804,7 @@ class PublicCheckoutController extends BaseController
                 'order_id' => $order->getKey(),
                 'product_id' => $cartItem->id,
                 'product_name' => $cartItem->name,
-                'product_image' => $product->original_product->image,
+                'product_image' => $cartItem->options['image'],
                 'qty' => $cartItem->qty,
                 'weight' => Arr::get($cartItem->options, 'weight', 0),
                 'price' => $cartItem->price,

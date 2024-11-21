@@ -577,10 +577,9 @@ class MediaController extends BaseController
             case 'rename':
                 Validator::validate($request->input(), [
                     'selected' => ['required', 'array'],
-                    'selected.*.id' => ['required', 'string'],
-                    'selected.*.name' => ['required', 'string'],
+                    'selected.*.id' => ['required', 'string', 'exists:media_files,id'],
+                    'selected.*.name' => ['required', 'string', 'max:120'],
                     'selected.*.is_folder' => ['required', 'boolean'],
-                    'selected.*.rename_physical_file' => ['sometimes', 'boolean'],
                 ]);
 
                 foreach ($request->input('selected') as $item) {
@@ -621,6 +620,12 @@ class MediaController extends BaseController
                 break;
 
             case 'alt_text':
+                Validator::validate($request->input(), [
+                    'selected' => ['required', 'array'],
+                    'selected.*.id' => ['required', 'exists:media_files,id'],
+                    'selected.*.alt' => ['nullable', 'string', 'max:220'],
+                ]);
+
                 foreach ($request->input('selected') as $item) {
                     if (! $item['id']) {
                         continue;

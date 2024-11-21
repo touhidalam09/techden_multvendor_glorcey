@@ -852,7 +852,7 @@ class OrderHelper
                     'order_id' => $sessionData['created_order_id'],
                     'product_id' => $cartItem->id,
                     'product_name' => $cartItem->name,
-                    'product_image' => $productByCartItem->original_product->image,
+                    'product_image' => $cartItem->options['image'],
                     'qty' => $cartItem->qty,
                     'weight' => $productByCartItem->weight * $cartItem->qty,
                     'price' => $cartItem->price,
@@ -1059,6 +1059,11 @@ class OrderHelper
                 'customer_cancel_order',
                 $order->user->email ?: $order->address->email
             );
+        }
+
+        if ($mailer->templateEnabled('order_cancellation_to_admin')) {
+            $this->setEmailVariables($order);
+            $mailer->sendUsingTemplate('order_cancellation_to_admin');
         }
 
         if (AdminHelper::isInAdmin() && Auth::check() && $mailer->templateEnabled('admin_cancel_order')) {

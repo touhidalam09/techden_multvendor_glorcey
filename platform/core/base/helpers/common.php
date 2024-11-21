@@ -73,7 +73,7 @@ if (! function_exists('get_cms_version')) {
 if (! function_exists('get_core_version')) {
     function get_core_version(): string
     {
-        return '7.4.5';
+        return '7.4.6';
     }
 }
 

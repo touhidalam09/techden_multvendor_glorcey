@@ -88,7 +88,7 @@ class BaseServiceProvider extends ServiceProvider
 
         $this->prepareAliasesIfMissing();
 
-        config()->set(['session.cookie' => 'botble_session']);
+        config()->set(['session.cookie' => config('core.base.general.session_cookie', 'botble_session')]);
 
         $this->overrideDefaultConfigs();
 
